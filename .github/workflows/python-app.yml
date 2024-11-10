@@ -21,7 +21,15 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
-    - name: Check if PYTHON_VERSION=${{ env.PYTHON_VERSION }} is installed, install if not exists
+    - name: Initializing pyenv
+      run: |
+        export PYENV_ROOT="/home/nyorf/.pyenv"
+        export PATH="$PYENV_ROOT/bin:$PATH"
+        export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+        eval "$(pyenv init --path)"
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+    - name: Check if PYTHON_VERSION is installed, install if not exists
       run: |
         pyenv install ${{ env.PYTHON_VERSION }} -s
         pyenv local ${{ env.PYTHON_VERSION }}
