@@ -21,14 +21,14 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
-    - name: Check if PYTHON_VERSION is installed, install if not exists
+    - name: Check if PYTHON_VERSION=${{ env.PYTHON_VERSION }} is installed, install if not exists
       run: |
-        pyenv install PYTHON_VERSION -s
-        pyenv local PYTHON_VERSION
+        pyenv install ${{ env.PYTHON_VERSION }} -s
+        pyenv local ${{ env.PYTHON_VERSION }}
     - name: Create virtualenv
       run: |
-        pyenv virtualenv VIRTUALENV
-        pyenv activate VIRTUALENV
+        pyenv virtualenv ${{ env.VIRTUALENV }}
+        pyenv activate ${{ env.VIRTUALENV }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -45,5 +45,5 @@ jobs:
         pytest
     - name: Deactivate and delete virtualenv
       run: |
-        pyenv deactivate VIRTUALENV
-        pyenv virtualenv-delete -f VIRTUALENV
+        pyenv deactivate ${{ env.VIRTUALENV }}
+        pyenv virtualenv-delete -f ${{ env.VIRTUALENV }}
