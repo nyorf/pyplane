@@ -120,7 +120,7 @@ class BaseClient:
         if params is not None:
             request_params["params"] = params
 
-        if method in ("post", "put"):
+        if method in ("post", "put", "patch"):
             if payload is not None:
                 request_params["json"] = payload
 
@@ -169,6 +169,8 @@ class BaseClient:
             return client.put
         elif method == "delete":
             return client.delete
+        elif method == "patch":
+            return client.patch
         else:
             return client.get
 
@@ -220,6 +222,9 @@ class Client(BaseClient):
 
     def put(self, endpoint, payload=None, params=None, data=None):
         return self.make_request("put", endpoint, payload=payload, params=params).json()
+
+    def patch(self, endpoint, payload=None, params=None, data=None):
+        return self.make_request("patch", endpoint, payload=payload, params=params).json()
 
     def delete(self, endpoint, payload=None, params=None, data=None):
         return self.make_request("delete", endpoint, payload=payload, params=params).json()
