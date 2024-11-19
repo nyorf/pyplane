@@ -1,3 +1,2 @@
-__all__ = ["Client", "Driver"]
-from .driver import Driver
+__all__ = ["Client"]
 from .client import Client
